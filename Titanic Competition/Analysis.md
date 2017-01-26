@@ -99,7 +99,6 @@ missmap(df.train, main="Titanic Training Data - Missings Map",
 About 60% of passengers survived
 ```
 > round(prop.table(table(train_data$Survived)),4)
-
      0      1 
 0.6162 0.3838 
 ```
@@ -119,8 +118,7 @@ GG+geom_bar(aes(x=Sex,fill=Sex))
 
 ####Survival Rate of Different Sex
 ```
-> round(prop.table(table(train_data$Sex,train_data$Survived),1),4) #sex row %
-        
+> round(prop.table(table(train_data$Sex,train_data$Survived),1),4) #sex row %   
               0      1
   female 0.2580 0.7420
   male   0.8111 0.1889
@@ -134,7 +132,49 @@ mosaicplot(train_data$Sex ~ train_data$Survived,
 
 ###Pclass vs Survival
 ####Number of Passengers 
-```
-GG+geom_bar(aes(x=Pclass,fill=Pclass))
-```
 ![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Number%20of%20Passengers%20Pclass.png)
+
+####Survival Rate of Different Pclass
+```
+> round(prop.table(table(train_data$Pclass,train_data$Survived),1),4) #Pclass row %
+         0      1
+  1 0.3704 0.6296
+  2 0.5272 0.4728
+  3 0.7576 0.2424
+```
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Passenger%20Fate%20by%20Traveling%20Class.png)
+
+###SibSp vs Survival
+####Number of Passengers 
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Number%20of%20Passengers%20SibSp.png)
+
+####Survival Rate of Different SibSp
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Number%20of%20Passengers%20SibSp.png)
+
+###Parch vs Survival
+```
+> round(prop.table(table(train_data$Parch,train_data$Survived),1),4) #Parch row %
+         0      1
+  0 0.6563 0.3437
+  1 0.4492 0.5508
+  2 0.5000 0.5000
+  3 0.4000 0.6000
+  4 1.0000 0.0000
+  5 0.8000 0.2000
+  6 1.0000 0.0000
+```
+####Number of Passengers 
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Number%20of%20Passengers%20Parch.png)
+
+####Survival Rate of Different Parch
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Survival%20Rate%20of%20Different%20Parch.png)
+
+##Data Transforming
+
+
+
+
+![alt text]()
+![alt text]()
+![alt text]()
+![alt text]()
