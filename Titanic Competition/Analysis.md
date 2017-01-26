@@ -149,7 +149,7 @@ mosaicplot(train_data$Sex ~ train_data$Survived,
 ![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Number%20of%20Passengers%20SibSp.png)
 
 ####Survival Rate of Different SibSp
-![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Number%20of%20Passengers%20SibSp.png)
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Survival%20Rate%20of%20Different%20SibSp.png)
 
 ###Parch vs Survival
 ```
