@@ -67,7 +67,7 @@ train_data <- read.csv("train.csv")
 ```
 
 ##EDA
-Data structure
+###Data structure
 ```
 > str(train_data)
 'data.frame':	891 obs. of  16 variables:
@@ -88,7 +88,7 @@ Data structure
  $ Family_Size: num  2 2 1 2 1 1 1 5 3 2 ...
  $ Surname    : chr  "Braund" "Cumings" "Heikkinen" "Futrelle" ...
  ```
- Missing data
+ ###Missing data
 ```
 missmap(df.train, main="Titanic Training Data - Missings Map", 
         col=c("yellow", "black"), legend=FALSE)
@@ -102,7 +102,7 @@ Survival Rate. About 60% of passengers survived
      0      1 
 0.6162 0.3838 
 ```
-Sex vs Survival
+###Sex vs Survival
 ```
 GG <- ggplot(data=train_data)
 GG_Avg_Line <- function(aes){GG+geom_bar(aes,position = "fill")+
@@ -110,6 +110,7 @@ GG_Avg_Line <- function(aes){GG+geom_bar(aes,position = "fill")+
     geom_text(aes(0,0.3838,label = "Average Survival Rate = 0.3838", vjust = 2,hjust=0),
               family="BL",color="#333333")}
 ```
+####Survival Rate of Different Sex
 ```
 mosaicplot(train_data$Sex ~ train_data$Survived, 
            main="Passenger Fate by Sex", shade=FALSE, 
