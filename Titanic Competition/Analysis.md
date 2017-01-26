@@ -119,16 +119,22 @@ GG+geom_bar(aes(x=Sex,fill=Sex))
 
 ####Survival Rate of Different Sex
 ```
+> round(prop.table(table(train_data$Sex,train_data$Survived),1),4) #sex row %
+        
+              0      1
+  female 0.2580 0.7420
+  male   0.8111 0.1889
+```
+```
 mosaicplot(train_data$Sex ~ train_data$Survived, 
            main="Passenger Fate by Sex", shade=FALSE, 
            color=TRUE, xlab="Sex", ylab="Survived")
 ```
 ![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Passenger%20Fate%20by%20Sex.png)
+
+###Pclass vs Survival
+####Number of Passengers 
 ```
-GG_Avg_Line(aes(x=factor(Sex),fill=factor(Survived)))
+GG+geom_bar(aes(x=Pclass,fill=Pclass))
 ```
-![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Survival%20Rate%20of%20Different%20Sex2.png)
-
-####
-
-
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Number%20of%20Passengers%20Pclass.png)
