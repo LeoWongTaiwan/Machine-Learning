@@ -167,7 +167,106 @@ mosaicplot(train_data$Sex ~ train_data$Survived,
 ![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Number%20of%20Passengers%20Parch.png)
 
 ####Survival Rate of Different Parch
-![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Survival%20Rate%20of%20Different%20Parch.png)
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Survival%20Rate%20of%20Different%20SibSp.png)
+
+###The following EDA will be shown as codes
+```
+##Embarked vs Survival
+mosaicplot(train_data$Embarked ~ train_data$Survived, 
+           main="Passenger Fate by Port of Embarkation", shade=FALSE, 
+           color=TRUE, xlab="Embarked", ylab="Survived")
+
+GG+geom_bar(aes(x=Embarked,fill=Embarked)) #Plot
+
+GG_Avg_Line(aes(x=factor(Embarked),fill=factor(Survived)))
+
+table(train_data$Embarked,train_data$Survived)
+round(prop.table(table(train_data$Embarked,train_data$Survived)),4) #all %
+round(prop.table(table(train_data$Embarked,train_data$Survived),1),4) #Parch row %
+##Check Fare
+ggplot(data=train_data,aes(x=factor(0),y=Fare))+  #Fare Distribution
+  geom_boxplot()+ggtitle("Fare Distribution")+
+  stat_summary(fun.y = mean, colour="#F8766D", geom="point", size=3,show.legend = FALSE)
+
+GG+geom_histogram(aes(x=Fare,fill=factor(Survived)),binwidth=10,position = "fill",stats="count")+
+  geom_hline(yintercept=0.3838, linetype="dashed")+ 
+  scale_y_continuous(breaks = sort(c(seq(min(train_data$Survived), max(train_data$Survived), length.out=5), 0.3838)))+
+  geom_text(aes(0,0.3838,label = "Average Survival Rate = 0.3838", vjust = 2,hjust=0),family="BL",color="#333333")
+
+summary(train_data$Fare)
+
+GG+geom_histogram(aes(x=Fare,y=..count..),binwidth=5)
+train_data[c(which(train_data$Fare<=10)),]$Survived #Random trying
+##Check Age
+summary(train_data$Age)
+
+ggplot(data=train_data, aes(x=factor(0),y=Age))+ 
+  geom_boxplot(size=0.5)
+
+GG+geom_histogram(aes(x=Age,fill=factor(Survived)),binwidth=5,position = "fill",stats="count")+
+  geom_hline(yintercept=0.3838, linetype="dashed")+ 
+  scale_y_continuous(breaks = sort(c(seq(min(train_data$Survived), max(train_data$Survived), length.out=5), 0.3838)))+
+  geom_text(aes(0,0.3838,label = "Average Survival Rate = 0.3838", vjust = 2,hjust=0),family="BL",color="#333333")
+
+boxplot(train_data$Age ~ train_data$Survived, 
+        main="Passenger Fate by Age",
+        xlab="Survived", ylab="Age")
+
+##Check Cabin
+mosaicplot(train_data$Has_Cabin ~ train_data$Survived, 
+           main="Passenger Fate by Has Cabin or Not", shade=FALSE, 
+           color=TRUE, xlab="Has Cabin", ylab="Survived")
+
+summary(train_data$Has_Cabin)
+
+GG+geom_bar(aes(x=Has_Cabin,fill=Has_Cabin)) #Plot
+GG_Avg_Line(aes(x=Has_Cabin,fill=Survived)) #Plot Survival Rate
+table(train_data$Parch,train_data$Survived)
+round(prop.table(table(train_data$Parch,train_data$Survived)),4) #all %
+round(prop.table(table(train_data$Parch,train_data$Survived),1),4) #Parch row %
+
+##Check Age vs Sex
+boxplot(train_data$Age ~ train_data$Sex, 
+        main="Passenger Sex by Age",
+        xlab="Sex", ylab="Age")
+
+##Check Age vs Pclass
+boxplot(train_data$Age ~ train_data$Pclass, 
+        main="Passenger Pclass by Age",
+        xlab="Pclass", ylab="Age")
+
+##Check Age vs SibSp
+boxplot(train_data$Age ~ train_data$SibSp, 
+        main="Passenger SibSp by Age",
+        xlab="SibSp", ylab="Age")
+
+##Check Age vs Parch
+boxplot(train_data$Age ~ train_data$Parch, 
+        main="Passenger Parch by Age",
+        xlab="Parch", ylab="Age")
+
+##Check Age vs Parch
+boxplot(train_data$Age ~ train_data$Parch, 
+        main="Passenger Parch by Age",
+        xlab="Parch", ylab="Age")
+
+
+##Check Age vs Fare
+plot(train_data$Age ~ train_data$Fare, 
+        main="Passenger Fare by Age",
+        xlab="Fare", ylab="Age")
+
+##Check Age vs Embarked
+boxplot(train_data$Age ~ train_data$Embarked, 
+     main="Passenger Embarked by Age",
+     xlab="Embarked", ylab="Age")
+
+##Check Age vs Has_Cabin
+boxplot(train_data$Age ~ train_data$Has_Cabin, 
+     main="Passenger Has_Cabin by Age",
+     xlab="Has_Cabin", ylab="Age")
+```
+
 
 ##Data Transforming
 
