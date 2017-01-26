@@ -1,7 +1,11 @@
 #Titanic Survival Prediction
 
 ##Background 
-The Titanic challenge is a competition from Kaggle. The sinking of the RMS Titanic is one of the most infamous shipwrecks in history.  On April 15, 1912, during her maiden voyage, the Titanic sank after colliding with an iceberg, killing 1502 out of 2224 passengers and crew. This sensational tragedy shocked the international community and led to better safety regulations for ships.
+The Titanic challenge is a competition from Kaggle missioned to build predicitive models for passengers' survival. The sinking of the RMS Titanic is one of the most infamous shipwrecks in history.  On April 15, 1912, during her maiden voyage, the Titanic sank after colliding with an iceberg, killing 1502 out of 2224 passengers and crew. This sensational tragedy shocked the international community and led to better safety regulations for ships.
+
+##Main Goals (for myself)
+1. Conduct Exploratory Data Analysis on the data and visualize interesting relationships between different attributes or fields.
+2. Learn and use different ML models to boost accuracy of the prediction.
 
 ##Data
 There are totally 1309 passengers that are recorded in the data set. We separatde 891 of them to be the training data and the rest 418 of them to be the testing data. All the datas are provided by Kaggle.
