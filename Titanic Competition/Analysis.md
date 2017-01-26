@@ -95,7 +95,8 @@ missmap(df.train, main="Titanic Training Data - Missings Map",
 ```
 ![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Missing%20Data.jpg)
 
-Survival Rate. About 60% of passengers survived
+###Survival Rate
+About 60% of passengers survived
 ```
 > round(prop.table(table(train_data$Survived)),4)
 
@@ -110,6 +111,12 @@ GG_Avg_Line <- function(aes){GG+geom_bar(aes,position = "fill")+
     geom_text(aes(0,0.3838,label = "Average Survival Rate = 0.3838", vjust = 2,hjust=0),
               family="BL",color="#333333")}
 ```
+####Number of Passengers 
+```
+GG+geom_bar(aes(x=Sex,fill=Sex))
+```
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Number%20of%20Passengers.png)
+
 ####Survival Rate of Different Sex
 ```
 mosaicplot(train_data$Sex ~ train_data$Survived, 
@@ -117,6 +124,11 @@ mosaicplot(train_data$Sex ~ train_data$Survived,
            color=TRUE, xlab="Sex", ylab="Survived")
 ```
 ![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Passenger%20Fate%20by%20Sex.png)
+```
+GG_Avg_Line(aes(x=factor(Sex),fill=factor(Survived)))
+```
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Survival%20Rate%20of%20Different%20Sex2.png)
 
+####
 
 
