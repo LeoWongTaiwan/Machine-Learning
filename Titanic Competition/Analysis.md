@@ -468,7 +468,7 @@ varImpPlot(M7_RF)
 ```
 ![](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Important.PNG)
 
-#Model 8 -  Forest of Conditional Inference Trees
+##Model 8 -  Forest of Conditional Inference Trees
 ```
 set.seed(1)
 M8_RF <- cforest(as.factor(Survived) ~ Pclass + Sex +Age + SibSp + Parch + Fare + 
