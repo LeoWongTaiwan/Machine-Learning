@@ -70,13 +70,11 @@ Lets see columns do we have
 ```
 > colnames(train_data)
  [1] "PassengerId" "Survived"    "Pclass"      "Name"        "Sex"         "Age"         "SibSp"      
- [8] "Parch"       "Ticket"      "Fare"        "Cabin"       "Embarked"    "Has_Cabin"   "Title"      
-[15] "Family_Size" "Surname"    
+ [8] "Parch"       "Ticket"      "Fare"        "Cabin"       "Embarked"    
 > colnames(test_data)
  [1] "PassengerId" "Survived"    "Pclass"      "Name"        "Sex"         "Age"         "SibSp"      
- [8] "Parch"       "Ticket"      "Fare"        "Cabin"       "Embarked"    "Has_Cabin"   "Title"      
-[15] "Family_Size" "Surname" 
-```
+ [8] "Parch"       "Ticket"      "Fare"        "Cabin"       "Embarked"  
+ ```
 
 ##Data Cleaing and Transforming
 Data summary
@@ -109,4 +107,25 @@ Missing data in train and test data
  Mean   : 1.905                     
  3rd Qu.: 2.000                     
  Max.   :11.000 
+```
+
+##Exploratory Data Analysis
+Total Survival Rate
+```
+> round(prop.table(table(train_data$Survived)),4)
+
+     0      1 
+0.6162 0.3838 
+```
+Sex vs Survival
+```
+GG <- ggplot(data=train_data)
+GG_Avg_Line <- function(aes){GG+geom_bar(aes,position = "fill")+
+    geom_hline(yintercept=0.3838, linetype="dashed")+
+    geom_text(aes(0,0.3838,label = "Average Survival Rate = 0.3838", vjust = 2,hjust=0),
+              family="BL",color="#333333")}
+
+mosaicplot(train_data$Sex ~ train_data$Survived, 
+           main="Passenger Fate by Sex", shade=FALSE, 
+           color=TRUE, xlab="Sex", ylab="Survived")
 ```
