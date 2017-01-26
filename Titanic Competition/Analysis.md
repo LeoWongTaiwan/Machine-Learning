@@ -227,12 +227,17 @@ round(prop.table(table(train_data$Parch,train_data$Survived),1),4) #Parch row %
 boxplot(train_data$Age ~ train_data$Sex, 
         main="Passenger Sex by Age",
         xlab="Sex", ylab="Age")
+```
+![](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/AgeVSex.png)
+```
 
 ##Check Age vs Pclass
 boxplot(train_data$Age ~ train_data$Pclass, 
         main="Passenger Pclass by Age",
         xlab="Pclass", ylab="Age")
-
+```
+![](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/PclassVAge.png)
+```
 ##Check Age vs SibSp
 boxplot(train_data$Age ~ train_data$SibSp, 
         main="Passenger SibSp by Age",
