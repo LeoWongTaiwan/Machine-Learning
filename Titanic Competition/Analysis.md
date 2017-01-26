@@ -94,5 +94,11 @@ missmap(df.train, main="Titanic Training Data - Missings Map",
         col=c("yellow", "black"), legend=FALSE)
 ```
 ![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Missing%20Data.jpg)
+Survival Rate
+```
+> round(prop.table(table(train_data$Survived)),4)
 
+     0      1 
+0.6162 0.3838 
+```
 
