@@ -61,8 +61,21 @@ install.packages('party')
 ```
 
 ## Getting the Data Into R
+Load in the data sets and rename them.
 ```
-#load in data and rename
 test_data <- read.csv("test.csv")
 train_data <- read.csv("train.csv")
 ```
+Lets see columns do we have
+```
+> colnames(train_data)
+ [1] "PassengerId" "Survived"    "Pclass"      "Name"        "Sex"         "Age"         "SibSp"      
+ [8] "Parch"       "Ticket"      "Fare"        "Cabin"       "Embarked"    "Has_Cabin"   "Title"      
+[15] "Family_Size" "Surname"    
+> colnames(test_data)
+ [1] "PassengerId" "Survived"    "Pclass"      "Name"        "Sex"         "Age"         "SibSp"      
+ [8] "Parch"       "Ticket"      "Fare"        "Cabin"       "Embarked"    "Has_Cabin"   "Title"      
+[15] "Family_Size" "Surname" 
+```
+
+
