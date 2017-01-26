@@ -8,9 +8,7 @@ The Titanic challenge is a competition from Kaggle missioned to build predicitiv
 2. Learn and use different ML models to boost accuracy of the prediction.
 
 ##Data
-There are totally 1309 passengers that are recorded in the data set. We separatde 891 of them to be the training data and the rest 418 of them to be the testing data. All the datas are provided by Kaggle.
-
-The description od columns are as below (from Kaggle):
+There are totally 1309 passengers that are recorded in the data set. We separatde 891 of them to be the training data and the rest 418 of them to be the testing data. All the datas are provided by Kaggle.The description od columns are as below (from Kaggle):
 ```
 VARIABLE DESCRIPTIONS:
 survival        Survival
@@ -50,3 +48,44 @@ only with a nanny, therefore parch=0 for them.  As well, some
 travelled with very close friends or neighbors in a village, however,
 the definitions do not support such relations.
 ```
+
+## Basic Settings
+```
+install.packages("rpart") #Recursive Partitioning and Regression Trees
+install.packages('rattle') #Plotting rpart
+install.packages('rpart.plot')
+install.packages('RColorBrewer')
+install.packages('randomForest')
+install.packages('party')
+library(party)
+library(randomForest)
+library(rattle)
+library(rpart.plot)
+library(RColorBrewer)
+library(rpart)
+library(REmap)
+library(RSQLite)
+library(sqldf)
+library(rgdal)
+library(ggmap)
+library(PerformanceAnalytics)
+library(Hmisc)
+library(corrplot)
+library(RODBC)
+library(pastecs)
+library(ztable)
+library(dplyr)
+library(highcharter)
+library(data.table)
+library(reshape2)   # long and wide format
+library(knitr)      # dynamic report generation"," RMarkdown
+library(ggplot2)    # data Viz
+library(scales)      # show percent labels in ggplot2
+library(GGally)     # extension to ggplot2
+library(ggmap)      # extension to ggplot2
+library(geosphere)  # distance between two location (lon"," lat)
+library(ggdendro)
+library(plotly)
+```
+
+## Getting the Data Into R
