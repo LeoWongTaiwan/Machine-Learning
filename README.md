@@ -61,3 +61,8 @@ install.packages('party')
 ```
 
 ## Getting the Data Into R
+```
+#load in data and rename
+test_data <- read.csv("test.csv")
+train_data <- read.csv("train.csv")
+```
