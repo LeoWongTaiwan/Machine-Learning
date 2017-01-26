@@ -266,12 +266,212 @@ boxplot(train_data$Age ~ train_data$Has_Cabin,
 ```
 
 
-##Data Transforming
+##Model 1 - All Dead
+```
+M1_All_Dead <- data.frame(PassengerId=test_data$PassengerId, Survived=test_data$Survived)
+write.csv(M1_All_Dead,"M1_All_Dead.csv",row.names = FALSE)
+```
 
+##Model 2 - Female Survived
+```
+##Female has a higher survival rate, set all females as Survived
+test_data[c(which(test_data$Sex=="female")),]$Survived <- "1"
+head(test_data)
+M2_Gender <- data.frame(PassengerId=test_data$PassengerId,Survived=test_data$Survived)
+write.csv(M2_Gender,"M2_Gender.csv",row.names = F)
+```
 
+##Model 3 - Logistic Model
+```
+M3_GLM_1 <- glm(Survived~Pclass+Sex+Age+SibSp+Parch+Fare+Embarked+Has_Cabin,
+                family = binomial, data = train_data[c(which(is.na(train_data$Age)==F)),])
+summary(M3_GLM_1)
+length(c(which(is.na(train_data$Age)==F))) # 177 rows without Age
+c(which(is.na(train_data$Age)==T))
+##build another model for these 177 rows
+M3_GLM_2 <- glm(Survived~Pclass+Sex+SibSp+Parch+Fare+Embarked+Has_Cabin,
+                family = binomial, data = train_data[c(which(is.na(train_data$Age)==T)),])
+summary(M3_GLM_2)
+##Predict test data
+Predict_M3_1 <- predict.glm(M3_GLM_1,newdata = test_data[c(which(is.na(test_data$Age)==F)),],type="response")
+Predict_M3_2 <- predict.glm(M3_GLM_2,newdata = test_data[c(which(is.na(test_data$Age)==T)),],type="response")
+Predict_M3_1_output <- as.data.frame(Predict_M3_1)
+colnames(Predict_M3_1_output)[1] <- "Survived_IO"
+Predict_M3_2_output <- as.data.frame(Predict_M3_2)
+colnames(Predict_M3_2_output)[1] <- "Survived_IO"
+Predict_M3_output <- rbind(Predict_M3_1_output,Predict_M3_2_output)
+##if > 0.5 survived, <0.5 dead
+Predict_M3_output$Survived_IO <- NULL
+M3_GLM <- data.frame(PassengerId=test_data$PassengerId,Survived=Predict_M3_output)
+write.csv(M3_GLM,"M3_GLM.csv")
+```
 
+#Model 4 -  Stepwise logistic regression
+```
+M4_GLM_Step_1 <- step(M3_GLM_1)
+summary(M4_GLM_Step_1)
+M4_GLM_Step_2 <- step(M3_GLM_2)
+summary(M4_GLM_Step_2)
+##Predict test data M4
+Predict_M4_1 <- predict.glm(M4_GLM_Step_1,newdata = test_data[c(which(is.na(test_data$Age)==F)),],type="response")
+Predict_M4_2 <- predict.glm(M4_GLM_Step_2,newdata = test_data[c(which(is.na(test_data$Age)==T)),],type="response")
+Predict_M4_1_output <- as.data.frame(Predict_M4_1)
+colnames(Predict_M4_1_output)[1] <- "Survived_IO"
+Predict_M4_2_output <- as.data.frame(Predict_M4_2)
+colnames(Predict_M4_2_output)[1] <- "Survived_IO"
+Predict_M4_output <- rbind(Predict_M4_1_output,Predict_M4_2_output)
+###if > 0.5 survived, <0.5 dead
+M4_GLM_Step <- data.frame(PassengerId=test_data$PassengerId,Survived=Predict_M4_output$Survived)
+write.csv(M4_GLM_Step,"M4_GLM_Step.csv",row.names = F)
+```
 
-![alt text]()
-![alt text]()
-![alt text]()
-![alt text]()
+##Model 5 - Decision Trees
+```
+##rpart #Recursive Partitioning and Regression Trees
+##Dicision Tree is greedy, it doesn't promise that the best decission will be made in the first tree
+colnames(train_data)
+rm(M5_fit)
+M5_DT <- rpart(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked + Has_Cabin,
+                data = train_data,
+                method = "class")
+dev.new(width=10, height=8) #use this to open rpart
+fancyRpartPlot(M5_DT)
+##Predict Model 5
+Predict_M5 <- predict(M5_DT, test_data, type = "class")
+M5_DT_Predict <- data.frame(PassengerId = test_data$PassengerId, Survived = Predict_M5)
+write.csv(M5_DT_Predict,"M5_DT_Predict.csv",row.names = F)
+```
+
+##Model 6 - Decision Trees with New engineered columns
+```
+colnames(train_data)
+M6_DT <- rpart(Survived ~ Pclass + Sex +Age + SibSp + Parch + Fare + 
+                 Embarked + Has_Cabin + Title + Family_Size,
+               data = train_data,
+               method = "class")
+fancyRpartPlot(M6_DT)
+dev.new(width=5, height=5) #use this to open rpart
+##Prodict Model 6
+Predict_M6 <- predict(M6_DT, test_data, type = "class")
+M6_DT_Predict <- data.frame(PassengerId=test_data$PassengerId,Survived=Predict_M6)
+write.csv(M6_DT_Predict,"M6_DT_Predict.csv",row.names = F)
+```
+![](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Decision%20Trees%20with%20New%20engineered%20columns.PNG)
+
+##Data Engineering
+###Engineering on Names
+```
+test_data$Survived <- NA
+train_test_bind <- rbind(train_data,test_data)
+head(train_data$Name,1)
+
+train_test_bind$Title <- sapply(train_test_bind$Name,function(x){strsplit(x, split='[,.]')[[1]][2]})
+train_test_bind$Title <- sub(" ","",train_test_bind$Title)
+table(train_test_bind$Title)
+##Mlle stands for Mademoiselle; Mme stands for Madame; They're the same
+train_test_bind$Title[train_test_bind$Title %in% c("Mlle","Mme")] <- "Madame"
+##Dona, Lady, Jonkheer, and the Countess <- Lady
+train_test_bind$Title[train_test_bind$Title %in% c("Dona","Lady","Jonkheer","the Countess")] <- "Lady"
+##Don, Capt, Major, Sir <- Sir
+train_test_bind$Title[train_test_bind$Title %in% c("Don","Capt","Major","Sir")] <- "Sir"
+table(train_test_bind$Title)
+##Factorize
+train_test_bind$Title <- as.factor(train_test_bind$Title)
+```
+###Engineering on Family size
+```
+#Family = Passenger + SibSp + Parch
+summary(train_test_bind)
+str(train_test_bind)
+train_test_bind$Family_Size <- train_test_bind$SibSp + train_test_bind$Parch +1
+
+##Check Age vs Family Size
+boxplot(train_test_bind$Age ~ train_test_bind$Family_Size, 
+        main="Passenger Family Size by Age",
+        xlab="Family Size", ylab="Age")
+```
+###Engineering on Last Names
+```
+sapply(train_test_bind$Name,function(x){strsplit(x, split='[,.]')[[1]][1]})
+A <- as.data.frame(table(sapply(train_test_bind$Name,function(x){strsplit(x, split='[,.]')[[1]][1]})))
+
+train_test_bind$Surname <- sapply(train_test_bind$Name,function(x){strsplit(x, split='[,.]')[[1]][1]})
+
+#Separate train and test
+train_data <- train_test_bind[c(1:nrow(train_data)),]
+test_data <- train_test_bind[c(892:1309),]
+```
+##Model 7 - Random Forest
+```
+colnames(train_data)
+fancyRpartPlot(rpart(Survived ~ Pclass, data = train_data, method = "class"))
+fancyRpartPlot(rpart(Survived ~ Age, data = train_data, method = "class"))
+fancyRpartPlot(rpart(Survived ~ Sex, data = train_data, method = "class"))
+fancyRpartPlot(rpart(Survived ~ Embarked, data = train_data, method = "class"))
+fancyRpartPlot(rpart(Survived ~ Has_Cabin, data = train_data, method = "class"))
+fancyRpartPlot(rpart(Survived ~ Family_Size, data = train_data, method = "class"))
+fancyRpartPlot(rpart(Survived ~ Parch, data = train_data, method = "class"))
+fancyRpartPlot(rpart(Survived ~ Title, data = train_data, method = "class"))
+```
+Random Forest can not deal with missing values like the decision tree we used before 
+We need to make predictions on the missing values
+```
+summary(train_test_bind)
+##Age: 263 missing; Fare: 1 missing
+###Deal with Fare: Use the average of all
+train_test_bind[is.na(train_test_bind$Fare),]$Fare <- mean(train_test_bind$Fare,na.rm = T)
+###Deal with Age: Predict it!!!
+Age_DT <- rpart(Age ~ Pclass + Sex + SibSp + Parch + Fare + 
+                       Embarked + Has_Cabin + Title + Family_Size,
+                     data=train_test_bind[!is.na(train_test_bind$Age),],
+                     method="anova") #use anova because Y is continuous
+Age_Predict <- predict(Age_DT,train_test_bind[is.na(train_test_bind$Age),])
+fancyRpartPlot(Age_DT)
+train_test_bind$Age[is.na(train_test_bind$Age)] <- Age_Predict
+```
+![](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/FancyAge.PNG)
+
+```
+###Deal with Embarked: Use S
+str(train_test_bind$Embarked)
+which(train_test_bind$Embarked=="") #62, 830
+
+##Start the forest
+train_data <- train_test_bind[c(1:891),]
+test_data <- train_test_bind[c(892:1309),]
+
+set.seed(1) #The number inside is not impartant, this is just to make the randomness when you run it again next time
+```
+Different from rpart:
+1. Target variable need to be a factor with only two levels
+2. The importance=TRUE argument allows us to inspect variable importance
+3. ntree argument specifies how many trees we want to grow
+```
+M7_RF <- randomForest(as.factor(Survived) ~ Pclass + Sex +Age + SibSp + Parch + Fare + 
+                        Embarked + Has_Cabin + Title + Family_Size,
+                      data=train_data,
+                      importance=TRUE,
+                      ntree=2000)
+varImpPlot(M7_RF)
+Predict_M7 <- predict(M7_RF,test_data)
+M7_RF_Predict <- data.frame(PassengerId=test_data$PassengerId,Survived=Predict_M7)
+write.csv(M7_RF_Predict,"M7_RF_Predict.csv",row.names = F)
+```
+What variables ar more important
+```
+varImpPlot(M7_RF)
+```
+![](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Important.PNG)
+
+#Model 8 -  Forest of Conditional Inference Trees
+```
+set.seed(1)
+M8_RF <- cforest(as.factor(Survived) ~ Pclass + Sex +Age + SibSp + Parch + Fare + 
+                        Embarked + Has_Cabin + Title + Family_Size,
+                 data=train_data,
+                 controls=cforest_unbiased(ntree=2000, mtry=3)) #use three variables
+summary(M8_RF)
+Predict_M8 <- predict(M8_RF,test_data, OOB=TRUE)
+M8_RF_Predict <- data.frame(PassengerId=test_data$PassengerId,Survived=Predict_M8)
+write.csv(M8_RF_Predict,"M8_RF_Predict.csv",row.names = F)
+```
