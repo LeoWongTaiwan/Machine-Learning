@@ -6,7 +6,7 @@ The Titanic challenge is a competition from Kaggle. The sinking of the RMS Titan
 ##Data
 There are totally 1309 passengers that are recorded in the data set. We separatde 891 of them to be the training data and the rest 418 of them to be the testing data. All the datas are provided by Kaggle.
 
-The description od columns are as below:
+The description od columns are as below (from Kaggle):
 ```
 VARIABLE DESCRIPTIONS:
 survival        Survival
