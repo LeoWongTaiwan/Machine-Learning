@@ -50,6 +50,7 @@ the definitions do not support such relations.
 ```
 
 ## Basic Settings
+Load additional packages.
 ```
 install.packages("rpart") #Recursive Partitioning and Regression Trees
 install.packages('rattle') #Plotting rpart
@@ -57,35 +58,6 @@ install.packages('rpart.plot')
 install.packages('RColorBrewer')
 install.packages('randomForest')
 install.packages('party')
-library(party)
-library(randomForest)
-library(rattle)
-library(rpart.plot)
-library(RColorBrewer)
-library(rpart)
-library(REmap)
-library(RSQLite)
-library(sqldf)
-library(rgdal)
-library(ggmap)
-library(PerformanceAnalytics)
-library(Hmisc)
-library(corrplot)
-library(RODBC)
-library(pastecs)
-library(ztable)
-library(dplyr)
-library(highcharter)
-library(data.table)
-library(reshape2)   # long and wide format
-library(knitr)      # dynamic report generation"," RMarkdown
-library(ggplot2)    # data Viz
-library(scales)      # show percent labels in ggplot2
-library(GGally)     # extension to ggplot2
-library(ggmap)      # extension to ggplot2
-library(geosphere)  # distance between two location (lon"," lat)
-library(ggdendro)
-library(plotly)
 ```
 
 ## Getting the Data Into R
