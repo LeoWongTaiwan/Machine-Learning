@@ -129,6 +129,7 @@ mosaicplot(train_data$Sex ~ train_data$Survived,
            color=TRUE, xlab="Sex", ylab="Survived")
 ```
 ![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Passenger%20Fate%20by%20Sex.png)
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Sex.png)
 
 ###Pclass vs Survival
 ####Number of Passengers 
@@ -143,6 +144,7 @@ mosaicplot(train_data$Sex ~ train_data$Survived,
   3 0.7576 0.2424
 ```
 ![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Passenger%20Fate%20by%20Traveling%20Class.png)
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Pclass.png)
 
 ###SibSp vs Survival
 ####Number of Passengers 
@@ -150,27 +152,23 @@ mosaicplot(train_data$Sex ~ train_data$Survived,
 
 ####Survival Rate of Different SibSp
 ![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Survival%20Rate%20of%20Different%20SibSp.png)
-
-###Parch vs Survival
-```
-> round(prop.table(table(train_data$Parch,train_data$Survived),1),4) #Parch row %
-         0      1
-  0 0.6563 0.3437
-  1 0.4492 0.5508
-  2 0.5000 0.5000
-  3 0.4000 0.6000
-  4 1.0000 0.0000
-  5 0.8000 0.2000
-  6 1.0000 0.0000
-```
-####Number of Passengers 
-![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Number%20of%20Passengers%20Parch.png)
-
-####Survival Rate of Different Parch
-![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Survival%20Rate%20of%20Different%20SibSp.png)
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Sibsp.png)
 
 ###The following EDA will be shown as codes
 ```
+##Parch vs Survival
+mosaicplot(train_data$Parch ~ train_data$Survived, 
+           main="Passenger Fate by Number of Parents/Children Aboard", shade=FALSE, 
+           color=TRUE, xlab="Parch", ylab="Survived")
+
+summary(train_data$Parch)
+
+GG+geom_bar(aes(x=Parch)) #Plot
+
+GG_Avg_Line(aes(x=factor(Parch),fill=factor(Survived)))#Plot Survival Rate
+table(train_data$Parch,train_data$Survived)
+round(prop.table(table(train_data$Parch,train_data$Survived)),4) #all %
+round(prop.table(table(train_data$Parch,train_data$Survived),1),4) #Parch row %
 ##Embarked vs Survival
 mosaicplot(train_data$Embarked ~ train_data$Survived, 
            main="Passenger Fate by Port of Embarkation", shade=FALSE, 
