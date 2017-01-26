@@ -48,3 +48,14 @@ only with a nanny, therefore parch=0 for them.  As well, some
 travelled with very close friends or neighbors in a village, however,
 the definitions do not support such relations.
 ```
+
+##Settings
+Load in new packages for future usage
+```
+install.packages("rpart") #Recursive Partitioning and Regression Trees
+install.packages('rattle') #Plotting rpart
+install.packages('rpart.plot')
+install.packages('RColorBrewer')
+install.packages('randomForest')
+install.packages('party')
+```
