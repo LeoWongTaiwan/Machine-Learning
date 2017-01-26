@@ -152,7 +152,7 @@ mosaicplot(train_data$Sex ~ train_data$Survived,
 
 ####Survival Rate of Different SibSp
 ![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Survival%20Rate%20of%20Different%20SibSp.png)
-![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/Sibsp.png)
+![alt text](https://github.com/LeoWongTaiwan/Machine-Learning/blob/master/Titanic%20Competition/Figures/SibSp.png)
 
 ###The following EDA will be shown as codes
 ```
