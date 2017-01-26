@@ -81,6 +81,7 @@ Lets see columns do we have
 ##Data Cleaing and Transforming
 Data summary
 Missing data in train and test data
+
 1. Train <- Pclass:full, Sex:full, Age: 177 NAs, SibSp:full, Parch:full, Fare:1 NA, Embarked:full, Has_Cabin:full
 2. Test <- Pclass:full, Sex:full, Age: 86 NAs, SibSp:full, Parch:full, Fare:1 NA, Embarked:full, Has_Cabin:full
 ```
