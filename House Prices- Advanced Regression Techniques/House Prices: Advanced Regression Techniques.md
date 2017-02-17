@@ -433,7 +433,7 @@ summary(M2_DT)
 dev.new(width=10, height=8) #use this to open rpart
 fancyRpartPlot(M2_DT)
 ```
-```
+
 ###Column refine
 ```
 colnames(Outcome_M2)
@@ -503,6 +503,7 @@ summary(train$MasVnrType)
 ##Test
 Same as Train
 ```
+
 ##2. Fix train$BsmtCond
 ```
 ##Train
